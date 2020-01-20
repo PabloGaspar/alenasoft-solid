@@ -1,6 +1,9 @@
 package edu.alenasoft.gildedrose;
 
-public class Item {
+public class Item implements QualityUpdatable{
+
+  protected static  final  int MIN_QUALITY = 0;
+  protected static  final  int MAX_QUALITY = 50;
 
   public String name;
   public int sellIn;
@@ -33,12 +36,31 @@ public class Item {
     return quality;
   }
 
-  public void setQuality(int quality) {
-    this.quality = quality;
-  }
+  public void setQuality(int quality) { this.quality = quality; }
 
   @Override
   public String toString() {
     return "Item{" + "name='" + name + '\'' + ", sellIn=" + sellIn + ", quality=" + quality + '}';
+  }
+
+  @Override
+  public void updateQuality() {
+    this.setQuality(this.getQuality()-1);
+    if (this.getSellIn()<=0)
+      this.setQuality(this.getQuality()-1);
+  }
+
+  @Override
+  public int getMaxQuality() {
+    return MAX_QUALITY;
+  }
+
+  @Override
+  public int getMinQuality() {
+    return MIN_QUALITY;
+  }
+
+  public void updateSellIn(){
+    this.setSellIn(this.getSellIn()-1);
   }
 }
